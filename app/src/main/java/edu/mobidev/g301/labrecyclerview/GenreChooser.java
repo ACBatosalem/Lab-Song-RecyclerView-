@@ -11,29 +11,40 @@ import android.os.Bundle;
  */
 public class GenreChooser extends DialogFragment {
 
+    private OnGenreSelectListener mOnGenreSelectListener;
+    final String[] mGenreList = new String[]{
+            "Classic",
+            "Country",
+            "EDM",
+            "Jazz",
+            "Pop",
+            "Rap",
+            "Rock"
+    };
+
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
-        final String[] genreList = new String[]{
-                "Classic",
-                "Country",
-                "EDM",
-                "Jazz",
-                "Pop",
-                "Rap",
-                "Rock"
-        };
+
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity())
                 .setTitle("Select Genre")
-                .setItems(genreList, new DialogInterface.OnClickListener() {
+                .setItems(mGenreList, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        ((AddSongActivity)getActivity()).onGenreSelected(genreList[which]);
+                        mOnGenreSelectListener.onGenreSelect(mGenreList[which]);
                         dismiss();
                     }
                 });
 
         return builder.create();
+    }
+
+    public interface OnGenreSelectListener{
+        public void onGenreSelect(String genre);
+    }
+
+    public void setOnGenreSelectListener(OnGenreSelectListener onGenreSelectListener){
+        this.mOnGenreSelectListener = onGenreSelectListener;
     }
 }

@@ -33,7 +33,15 @@ public class AddSongActivity extends ActionBarActivity {
         buttonChooseGenre.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new GenreChooser().show(getFragmentManager(), "");
+                GenreChooser gc = new GenreChooser();
+                gc.setOnGenreSelectListener(new GenreChooser.OnGenreSelectListener() {
+                    @Override
+                    public void onGenreSelect(String genre) {
+                        genreDrawableId = convertGenreToDrawableId(genre);
+                        tvGenre.setText(genre);
+                    }
+                });
+                gc.show(getFragmentManager(), "");
             }
         });
 
@@ -56,11 +64,6 @@ public class AddSongActivity extends ActionBarActivity {
                 finish();
             }
         });
-    }
-
-    public void onGenreSelected(String genre){
-        genreDrawableId = convertGenreToDrawableId(genre);
-        tvGenre.setText(genre);
     }
 
     public int convertGenreToDrawableId(String genre){
