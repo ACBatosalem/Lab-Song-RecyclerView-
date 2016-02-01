@@ -41,9 +41,10 @@ public class AddSongActivity extends ActionBarActivity {
             @Override
             public void onClick(View v) {
                 Intent result = new Intent();
-                result.putExtra(MainActivity.KEY_TITLE, etTitle.getText().toString());
-                result.putExtra(MainActivity.KEY_LYRICS, etLyrics.getText().toString());
-                result.putExtra(MainActivity.KEY_DRAWABLE_ID, genreDrawableId);
+                Song s = new Song(etTitle.getText().toString(),
+                        etLyrics.getText().toString(),
+                        genreDrawableId);
+                result.putExtra(MainActivity.KEY_SONG, s);
                 setResult(RESULT_OK, result);
                 finish();
             }

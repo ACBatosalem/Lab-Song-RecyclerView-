@@ -1,29 +1,23 @@
 package edu.mobidev.g301.labrecyclerview;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
-import android.widget.EditText;
 
 import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recyclerView;
-//    EditText etSong;
     View buttonAdd;
     SongAdapter songAdapter;
 
     final static int REQUEST_ADD_SONG = 0;
-    final static String KEY_TITLE = "title";
-    final static String KEY_LYRICS = "lyrics";
-    final static String KEY_DRAWABLE_ID = "drawable_id";
+    final static String KEY_SONG = "song";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,8 +48,6 @@ public class MainActivity extends AppCompatActivity {
         buttonAdd.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-//                songAdapter.addSong(etSong.getText().toString());
-//                etSong.setText("");
                 startActivityForResult(new Intent(getBaseContext(), AddSongActivity.class), REQUEST_ADD_SONG);
             }
         });
@@ -66,9 +58,7 @@ public class MainActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if(REQUEST_ADD_SONG == requestCode && resultCode == RESULT_OK){
-            songAdapter.addSong(new Song(data.getStringExtra(KEY_TITLE),
-                                         data.getStringExtra(KEY_LYRICS),
-                                         data.getIntExtra(KEY_DRAWABLE_ID, -1)));
+            songAdapter.addSong((Song) data.getExtras().get(KEY_SONG));
         }
     }
 

@@ -1,6 +1,5 @@
 package edu.mobidev.g301.labrecyclerview;
 
-import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -20,8 +19,10 @@ public class ViewSongActivity extends AppCompatActivity {
         tvTitle = (TextView) findViewById(R.id.tv_title);
         tvLyrics = (TextView) findViewById(R.id.tv_lyrics);
 
-        tvTitle.setText(getIntent().getStringExtra(MainActivity.KEY_TITLE));
-        tvLyrics.setText(getIntent().getStringExtra(MainActivity.KEY_LYRICS));
+        Song s = (Song) getIntent().getExtras().get(MainActivity.KEY_SONG);
+
+        tvTitle.setText(s.getTitle());
+        tvLyrics.setText(s.getLyrics());
     }
 
 

@@ -1,12 +1,17 @@
 package edu.mobidev.g301.labrecyclerview;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by ngoc on 1/27/2016.
  */
-public class Song {
+public class Song implements Parcelable {
     private String title;
     private String lyrics;
     private int resourceId;
+
+
 
     public Song(){
 
@@ -17,6 +22,24 @@ public class Song {
         this.lyrics = lyrics;
         this.resourceId = resourceId;
     }
+
+    protected Song(Parcel in) {
+        title = in.readString();
+        lyrics = in.readString();
+        resourceId = in.readInt();
+    }
+
+    public static final Creator<Song> CREATOR = new Creator<Song>() {
+        @Override
+        public Song createFromParcel(Parcel in) {
+            return new Song(in);
+        }
+
+        @Override
+        public Song[] newArray(int size) {
+            return new Song[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -40,5 +63,17 @@ public class Song {
 
     public void setResourceId(int resourceId) {
         this.resourceId = resourceId;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeString(title);
+        dest.writeString(lyrics);
+        dest.writeInt(resourceId);
     }
 }

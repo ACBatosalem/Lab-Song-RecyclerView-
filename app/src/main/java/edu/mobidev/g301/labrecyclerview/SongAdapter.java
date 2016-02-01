@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -66,9 +65,11 @@ public class SongAdapter
             @Override
             public void onClick(View v) {
                 Song s = (Song) v.getTag(R.id.key_item_song);
-                v.getContext().startActivity(new Intent(v.getContext(),ViewSongActivity.class)
-                        .putExtra(MainActivity.KEY_TITLE, s.getTitle())
-                        .putExtra(MainActivity.KEY_LYRICS, s.getLyrics()));
+//                v.getContext().startActivity(new Intent(v.getContext(),ViewSongActivity.class)
+//                        .putExtra(MainActivity.KEY_TITLE, s.getTitle())
+//                        .putExtra(MainActivity.KEY_LYRICS, s.getLyrics()));
+                v.getContext().startActivity(new Intent(v.getContext(), ViewSongActivity.class)
+                    .putExtra(MainActivity.KEY_SONG, s));
             }
         });
     }
